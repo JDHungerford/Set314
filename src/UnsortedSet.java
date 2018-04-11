@@ -110,9 +110,10 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		Iterator<E> removeIt = this.iterator();
 		boolean removed = false;
 		while (removeIt.hasNext() && !removed) {
-			if (removeIt.next().equals(item))
-				removed = true;
-			size--;
+			if (removeIt.next().equals(item)) {
+                removed = true;
+                size--;
+            }
 		}
 		return removed;
 	}
@@ -129,4 +130,8 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 			result.add(item);
 		return null;
 	}
+
+	private class SetIterator implements Iterator<E>{
+	    public SetIterator<E>
+    }
 }

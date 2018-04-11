@@ -55,6 +55,17 @@ public abstract class AbstractSet<E> implements ISet<E> {
     }
 
     /**
+     * Make this set empty.
+     * <br>pre: none
+     * <br>post: size() = 0
+     */
+    public void clear(){
+       for (E val : this){
+           this.remove(val);
+        }
+    }
+
+    /**
      * Determine if this set is equal to other.
      * Two sets are equal if they have exactly the same elements.
      * The order of the elements does not matter.
@@ -66,7 +77,7 @@ public abstract class AbstractSet<E> implements ISet<E> {
         boolean equal = false;
         if (other instanceof AbstractSet){
             AbstractSet<E> otherSet = (AbstractSet<E>) other;
-            equal = this.containsAll(otherSet);
+            equal = this.containsAll(otherSet) && this.size() == otherSet.size();
         }
         return equal;
     }
@@ -132,9 +143,10 @@ public abstract class AbstractSet<E> implements ISet<E> {
      * @param otherSet != null
      * @return a set that is the union of this set and otherSet
      */
-    public ISet<E> union(ISet<E> otherSet){
-
-
+    public ISet<E> intersection(ISet<E> otherSet) {
+        ISet<E> result = this.union(otherSet).difference(this.
+                difference(otherSet).union(otherSet.difference(this)));
+        return result;
     }
 
 

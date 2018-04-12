@@ -319,6 +319,10 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
                     otherIndex++;
                 }
             }
+            while(thisIndex < myCon.size()){
+                result.add(myCon.get(thisIndex));
+                thisIndex++;
+            }
         }else{
             for (E item : myCon) {
                 if (!otherSet.contains(item))

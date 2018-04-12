@@ -320,7 +320,35 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return a set that is the difference of this set and otherSet
      */
     public ISet<E> difference(ISet<E> otherSet){
-        return new SortedSet<>();
+        SortedSet<E> result = new SortedSet<>();
+        if (otherSet instanceof SortedSet){
+            SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
+            int thisIndex = 0;
+            int otherIndex = 0;
+            while(thisIndex < myCon.size() && otherIndex < otherSortedSet.myCon.size()){
+                E thisVal = myCon.get(thisIndex);
+                E otherVal = otherSortedSet.myCon.get(otherIndex);
+                int comparison = thisVal.compareTo(otherVal);
+                if (comparison == 0){
+                    //found an element, move on
+                    otherIndex++;
+                    thisIndex++;
+                }else if (comparison < 0){
+                    //havent found it yet, but still has a chance
+                    thisIndex++;
+                } else{
+                    //element does not exist
+                    result.add(thisVal);
+                    otherIndex++;
+                }
+            }
+        }else{
+            for (E item : myCon) {
+                if (!otherSet.contains(item))
+                    result.add(item);
+            }
+        }
+        return result;
     }
 
     /**

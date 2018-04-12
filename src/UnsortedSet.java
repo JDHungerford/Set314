@@ -111,7 +111,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 			result.add(item);
 		for (E item : otherSet)
 			result.add(item);
-		return null;
+		return result;
 	}
 
 

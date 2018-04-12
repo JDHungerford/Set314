@@ -43,29 +43,14 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      */
     public SortedSet() {
         myCon = new ArrayList<>();
+
     }
 
     public Iterator<E> iterator() {
         return myCon.iterator();
     }
 
-    /**
-     * Remove the specified item from this set if it is present.
-     * pre: item != null
-     * @param item the item to remove from the set. item may not equal null.
-     * @return true if this set changed as a result of this operation, false otherwise
-     */
-    public boolean remove(E item) {
-        Iterator<E> removeIt = this.iterator();
-        boolean removed = false;
-        while (removeIt.hasNext() && !removed) {
-            if (removeIt.next().equals(item)) {
-                removed = true;
 
-            }
-        }
-        return removed;
-    }
 
 
 
@@ -85,7 +70,6 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
                 index++;
             }
             myCon.add(index, item);
-
             return true;
         }
         return false;
@@ -170,11 +154,14 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return true if this set contains the specified item, false otherwise.
      */
     public boolean contains(E item){
+        if (item == null){
+            throw new IllegalArgumentException("Parameter can't be null");
+        }
         return binSearch(item, 0, myCon.size() - 1);
     }
 
     private boolean binSearch(E target, int low, int high) {
-        if( low <= high){
+        if(low <= high){
             int mid = low + ((high - low) / 2);
             if( myCon.get(mid).equals(target))
                 return true;
@@ -195,14 +182,11 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         if (other == null){
             throw new IllegalArgumentException("Parameter must not be null");
         }
-        if (other instanceof UnsortedSet){
-            SortedSet<E> otherSortedSet = (SortedSet<E>) other;
-            ArrayList<E> copy = new ArrayList<>(otherSortedSet.myCon);
-            mergeSort(copy, new ArrayList<>(), 0, copy.size() - 1);
-            myCon = copy;
-
+        myCon = new ArrayList<>();
+        for (E val : other){
+            myCon.add(val);
         }
-
+        mergeSort(myCon, new ArrayList<>(myCon.size()), 0, myCon.size() - 1);
     }
 
     //merge sort alg altered from Mike Scott's PDF

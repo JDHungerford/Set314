@@ -96,8 +96,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * <br>post: size() = 0
      */
     public void clear(){
-        myCon =  new ArrayList<>();
-
+        myCon =  new ArrayList<E>();
     }
 
     /**

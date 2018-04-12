@@ -1,18 +1,21 @@
 /*  Student information for assignment:
  *
+ *  On <MY|OUR> honor, Miles Chandler and Jacob Hungerford, this programming assignment is <MY|OUR> own work
+ *  and <I|WE> have not provided this code to any other student.
+ *
  *  Number of slip days used:
  *
- *  Student 1 (Student whose turnin account is being used)
- *  UTEID:
- *  email address:
- *  Grader name:
- *  Section number:
+ *  Student 1 Miles Chandler
+ *  UTEID: mac9325
+ *  email address: miles.chandler@ichandler.net
+ *  Grader name: Anthony
+ *  Section number: 51345
  *
- *  Student 2
- *  UTEID:
- *  email address:
- *  Grader name:
- *  Section number:
+ *  Student 2 Jacob Hungerford
+ *  UTEID: jdh5468
+ *  email address: JHungerford1516@utexas.edu
+ *  Grader name: Anthony
+ *  Section number: 51345
  *
  */
 
@@ -38,7 +41,11 @@ questions here:
 CS314 Students, why is it unwise to implement all three of the
 intersection, union, and difference methods in the AbstractSet class:
 
-
+The intersection, union, and difference methods in the AbstractSet class use
+eachother to construct a new set since the AbstractSet class is not allowed to
+explicitly create one of its children classes.  Since these methods call each
+other implementing more than one of them would create an infinite amount of 
+method calls.
 */
 
 

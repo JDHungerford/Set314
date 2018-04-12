@@ -38,7 +38,6 @@ import java.util.ArrayList;
 public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
 
     private ArrayList<E> myCon;
-    private int size;
 
     /**
      * create an empty SortedSet
@@ -63,7 +62,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         while (removeIt.hasNext() && !removed) {
             if (removeIt.next().equals(item)) {
                 removed = true;
-                size--;
+
             }
         }
         return removed;
@@ -81,11 +80,11 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         }
         if (!contains(item)){
             int index = 0;
-            while (item.compareTo(myCon.get(index)) < 0 && index < myCon.size()){
+            while (index < myCon.size() && item.compareTo(myCon.get(index)) < 0){
                 index++;
             }
             myCon.add(index, item);
-            size++;
+
             return true;
         }
         return false;
@@ -98,7 +97,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      */
     public void clear(){
         myCon =  new ArrayList<>();
-        size = 0;
+
     }
 
     /**
@@ -107,7 +106,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return the number of items in this set
      */
     public int size(){
-        return size;
+        return myCon.size();
     }
 
 
@@ -126,19 +125,11 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
            SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
            ArrayList<E> temp = new ArrayList<>(this.size() + otherSet.size());
            int newSize = merge(otherSortedSet, temp);
+           int oldSize = myCon.size();
            myCon = temp;
-           if (size() != newSize) {
-               size = newSize;
-               return true;
-           } else {
-               return false;
-           }
+           return newSize != oldSize;
        } else {
-           int oldSize = size;
-           for (E item : otherSet) {
-               add(item);
-           }
-           return oldSize != size;
+           return super.addAll(otherSet);
        }
     }
 
@@ -221,11 +212,11 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
             int center = (start + stop) / 2;
             mergeSort(list, temp, start, center);
             mergeSort(list, temp, center + 1, stop);
-            merge(list, temp, start, center + 1, stop);
+            mergeSub(list, temp, start, center + 1, stop);
         }
     }
 
-    private void merge(ArrayList<E> list, ArrayList<E> temp,
+    private void mergeSub(ArrayList<E> list, ArrayList<E> temp,
                                int leftPos, int rightPos, int rightEnd) {
         int leftEnd = rightPos - 1;
         int tempPos = leftPos;
@@ -265,7 +256,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return the smallest element in this SortedSet.
      */
     public E min() {
-        if (size == 0){
+        if (size() == 0){
             throw new IllegalStateException("Set has zero elements.");
         }else{
             return myCon.get(0);
@@ -298,7 +289,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return the largest element in this SortedSet.
      */
     public E max() {
-        if (size == 0){
+        if (size() == 0){
             throw new IllegalStateException("Set has zero elements.");
         }else{
             return myCon.get(myCon.size() - 1);
@@ -320,6 +311,9 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return a set that is the difference of this set and otherSet
      */
     public ISet<E> difference(ISet<E> otherSet){
+        if (otherSet == null){
+            throw new IllegalArgumentException("Parameter can't be null");
+        }
         SortedSet<E> result = new SortedSet<>();
         if (otherSet instanceof SortedSet){
             SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
@@ -359,6 +353,9 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * false otherwise.
      */
     public boolean containsAll(ISet<E> otherSet){
+        if (otherSet == null){
+            throw new IllegalArgumentException("Parameter can't be null");
+        }
         if (otherSet instanceof SortedSet){
             SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
             int thisIndex = 0;
@@ -385,6 +382,50 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
             //otherSet is a unsorted set so just use the parent code
             return super.containsAll(otherSet);
         }
+    }
+    /**
+     * create a new set that is the intersection of this set and otherSet.
+     * <br>pre: otherSet != null<br>
+     * <br>post: returns a set that is the intersection of this set and otherSet.
+     * Neither this set or otherSet are altered as a result of this operation.
+     * <br> pre: otherSet != null
+     * @param otherSet != null
+     * @return a set that is the intersection of this set and otherSet
+     */
+    public ISet<E> intersection(ISet<E> otherSet){
+        if (otherSet == null){
+            throw new IllegalArgumentException("Parameter can't be null");
+        }
+        SortedSet<E> result = new SortedSet<>();
+        if (otherSet instanceof SortedSet) {
+            SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
+            int thisIndex = 0;
+            int otherIndex = 0;
+            while (thisIndex < myCon.size() && otherIndex < otherSortedSet.myCon.size()) {
+                E thisVal = myCon.get(thisIndex);// 0 1 3 4
+                E otherVal = otherSortedSet.myCon.get(otherIndex);//2 4 6 8
+                int comparison = thisVal.compareTo(otherVal);
+                if (comparison == 0) {
+                    //found an element, add it to new set
+                    otherIndex++;
+                    thisIndex++;
+                    result.add(thisVal);
+                } else if (comparison < 0) {
+                    //havent found it yet, but still has a chance
+                    thisIndex++;
+                } else {
+                    //element does not exist
+                    otherIndex++;
+                    thisIndex++;
+                }
+            }
+        }else{
+            for (E item : myCon) {
+                if (otherSet.contains(item))
+                    result.add(item);
+            }
+        }
+        return result;
     }
 
 

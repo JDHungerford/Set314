@@ -67,6 +67,8 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         return removed;
     }
 
+
+
     /**
      * Add an item to this set.
      * <br> item != null
@@ -361,18 +363,23 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
             while(thisIndex < myCon.size() && otherIndex < otherSortedSet.myCon.size()){
                 E thisVal = myCon.get(thisIndex);// 0 1 3 4
                 E otherVal = otherSortedSet.myCon.get(otherIndex);//2 4 6 8
-                int comparison = thisVal.compareTo(otherVal);
-                if (comparison == 0){
-                    //found an element, move on
-                    otherIndex++;
-                    thisIndex++;
-                }else if (comparison < 0){
-                    //havent found it yet, but still has a chance
-                    thisIndex++;
-                } else{
-                    //element does not exist
+                if (thisVal.getClass().equals(otherVal.getClass())){
+                    int comparison = thisVal.compareTo(otherVal);
+                    if (comparison == 0){
+                        //found an element, move on
+                        otherIndex++;
+                        thisIndex++;
+                    }else if (comparison < 0){
+                        //havent found it yet, but still has a chance
+                        thisIndex++;
+                    } else{
+                        //element does not exist
+                        return false;
+                    }
+                }else{
                     return false;
                 }
+
             }
             //check one last time if we run out of elements
             return otherIndex == otherSortedSet.myCon.size();

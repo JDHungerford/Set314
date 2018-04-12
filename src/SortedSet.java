@@ -19,6 +19,7 @@
  *
  */
 
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -98,6 +99,15 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
     public void clear(){
         myCon =  new ArrayList<>();
         size = 0;
+    }
+
+    /**
+     * Return the number of elements of this set.
+     * pre: none
+     * @return the number of items in this set
+     */
+    public int size(){
+        return size;
     }
 
 
@@ -191,18 +201,62 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @param other != null
      */
     public SortedSet(ISet<E> other) {
+        if (other == null){
+            throw new IllegalArgumentException("Parameter must not be null");
+        }
+        if (other instanceof UnsortedSet){
+            SortedSet<E> otherSortedSet = (SortedSet<E>) other;
+            ArrayList<E> copy = new ArrayList<>(otherSortedSet.myCon);
+            mergeSort(copy, new ArrayList<>(), 0, copy.size() - 1);
+            myCon = copy;
+
+        }
 
     }
 
-    private ArrayList<E> mergeSort(ArrayList<E> other,int start, int end) {
-        if (end - start > 1) {
-            ArrayList<E> ar1 = mergeSort(other, start, end / 2);
-            ArrayList<E> ar2 = mergeSort(other, end / 2, end);
-        } else
+    //merge sort alg altered from Mike Scott's PDF
+    private void mergeSort(ArrayList<E> list, ArrayList<E> temp,
+                             int start, int stop) {
+        if( start < stop) {
+            int center = (start + stop) / 2;
+            mergeSort(list, temp, start, center);
+            mergeSort(list, temp, center + 1, stop);
+            merge(list, temp, start, center + 1, stop);
+        }
     }
 
-    private void merge(ArrayList<E> con, int start, int med, int end){
-        
+    private void merge(ArrayList<E> list, ArrayList<E> temp,
+                               int leftPos, int rightPos, int rightEnd) {
+        int leftEnd = rightPos - 1;
+        int tempPos = leftPos;
+        int numElements = rightEnd - leftPos + 1;
+
+        while( leftPos <= leftEnd && rightPos <= rightEnd){
+            if( list.get(leftPos).compareTo(list.get(rightPos)) <= 0) {
+                temp.set(tempPos, list.get(leftPos));
+                leftPos++;
+            }
+            else{
+                temp.set(tempPos, list.get(rightPos));
+                rightPos++;
+            }
+            tempPos++;
+        }
+        //copy rest of left half
+        while( leftPos <= leftEnd){
+            temp.set(tempPos, list.get(leftPos));
+            tempPos++;
+            leftPos++;
+        }
+        //copy rest of right half
+        while( rightPos <= rightEnd){
+            temp.set(tempPos, list.get(rightPos));
+            tempPos++;
+            rightPos++;
+        }
+        //Copy temp back into list
+        for(int i = 0; i < numElements; i++, rightEnd--)
+            list.set(rightEnd, temp.get(rightEnd));
     }
 
     /**
@@ -250,6 +304,62 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
             return myCon.get(myCon.size() - 1);
         }
     }
+
+    /**
+     * Create a new set that is the difference of this set and otherSet. Return an ISet of
+     * elements that are in this Set but not in otherSet. Also called
+     * the relative complement.
+     * <br>Example: If ISet A contains [X, Y, Z] and ISet B contains [W, Z] then
+     * A.difference(B) would return an ISet with elements [X, Y] while
+     * B.difference(A) would return an ISet with elements [W].
+     * <br>pre: otherSet != null
+     * <br>post: returns a set that is the difference of this set and otherSet.
+     * Neither this set or otherSet are altered as a result of this operation.
+     * <br> pre: otherSet != null
+     * @param otherSet != null
+     * @return a set that is the difference of this set and otherSet
+     */
+    public ISet<E> difference(ISet<E> otherSet){
+        return new SortedSet<>();
+    }
+
+    /**
+     * Determine if all of the elements of otherSet are in this set.
+     * <br> pre: otherSet != null
+     * @param otherSet != null
+     * @return true if this set contains all of the elements in otherSet,
+     * false otherwise.
+     */
+    public boolean containsAll(ISet<E> otherSet){
+        if (otherSet instanceof SortedSet){
+            SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
+            int thisIndex = 0;
+            int otherIndex = 0;
+            while(thisIndex < myCon.size() && otherIndex < otherSortedSet.myCon.size()){
+                E thisVal = myCon.get(thisIndex);// 0 1 3 4
+                E otherVal = otherSortedSet.myCon.get(otherIndex);//2 4 6 8
+                int comparison = thisVal.compareTo(otherVal);
+                if (comparison == 0){
+                    //found an element, move on
+                    otherIndex++;
+                    thisIndex++;
+                }else if (comparison < 0){
+                    //havent found it yet, but still has a chance
+                    thisIndex++;
+                } else{
+                    //element does not exist
+                    return false;
+                }
+            }
+            //check one last time if we run out of elements
+            return otherIndex == otherSortedSet.myCon.size();
+        }else{
+            //otherSet is a unsorted set so just use the parent code
+            return super.containsAll(otherSet);
+        }
+    }
+
+
 
 
 

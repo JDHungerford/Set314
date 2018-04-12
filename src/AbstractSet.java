@@ -66,6 +66,23 @@ public abstract class AbstractSet<E> implements ISet<E> {
     }
 
     /**
+     * Remove the specified item from this set if it is present.
+     * pre: item != null
+     * @param item the item to remove from the set. item may not equal null.
+     * @return true if this set changed as a result of this operation, false otherwise
+     */
+    public boolean remove(E item){
+        Iterator<E> it = this.iterator();
+        while (it.hasNext()){
+            if (it.next().equals(item)){
+                it.remove();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Determine if this set is equal to other.
      * Two sets are equal if they have exactly the same elements.
      * The order of the elements does not matter.
@@ -104,12 +121,11 @@ public abstract class AbstractSet<E> implements ISet<E> {
      * @return true if this set contains all of the elements in otherSet,
      * false otherwise.
      */
-    public boolean containsAll(ISet<E> otherSet){
-        Iterator<E> it = otherSet.iterator();
-        while(it.hasNext()){
-            if (!this.contains(it.next())){
+    public boolean containsAll(ISet<E> otherSet) {
+        for (E item : otherSet) {
+            boolean contains = contains(item);
+            if (!contains)
                 return false;
-            }
         }
         return true;
     }

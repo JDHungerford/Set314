@@ -40,7 +40,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 
 	// Adds the object to the Unsorted Set.
 	// Pre: item != null
-	// Post: Adds the item to the set if not already in the set.  Returns true
+	// Post: Adds the item to the set if not already in the set. Returns true
 	// if the set is changed by this method, false otherwise.
 	public boolean add(E item) {
 		if (item == null)
@@ -53,7 +53,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 			return true;
 		}
 	}
-	
+
 	// Removes all elements from the set and resets the size to 0.
 	public void clear() {
 		size = 0;
@@ -64,7 +64,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		}
 	}
 
-	// Returns a new Unsorted Set object that consists of the items that are in 
+	// Returns a new Unsorted Set object that consists of the items that are in
 	// the calling set but not in the parameter set.
 	// Pre: otherSet != null.
 	public ISet<E> difference(ISet<E> otherSet) {
@@ -77,7 +77,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		}
 		return result;
 	}
-	
+
 	// Returns a new Unsorted Set object that consists only of items that are in
 	// both the calling set and the parameter set.
 	// Pre: otherSet != null.
@@ -92,7 +92,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		return result;
 	}
 
-	// Returns a new Iterator object for the set.  This iterator iterates
+	// Returns a new Iterator object for the set. This iterator iterates
 	// over the internal arraylist storage container.
 	public Iterator<E> iterator() {
 		return myCon.iterator();
@@ -108,9 +108,9 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		while (removeIt.hasNext() && !removed) {
 			if (removeIt.next().equals(item)) {
 				removeIt.remove();
-                removed = true;
-                size--;
-            }
+				removed = true;
+				size--;
+			}
 		}
 		return removed;
 	}
@@ -119,7 +119,7 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 	public int size() {
 		return size;
 	}
-	
+
 	// Returns a new Unsorted Set object that consists of elements from both
 	// the calling set and the parameter set.
 	// Pre: otherSet != null

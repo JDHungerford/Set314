@@ -66,24 +66,6 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		}
 	}
 
-	public boolean contains(E item) {
-		Iterator<E> it = this.iterator();
-		while (it.hasNext()) {
-			if (it.next().equals(item))
-				return true;
-		}
-		return false;
-	}
-
-	public boolean containsAll(ISet<E> otherSet) {
-		for (E item : otherSet) {
-			boolean contains = contains(item);
-			if (!contains)
-				return false;
-		}
-		return true;
-	}
-
 	public ISet<E> difference(ISet<E> otherSet) {
 		ISet<E> result = new UnsortedSet<E>();
 		for (E item : myCon) {
@@ -110,9 +92,11 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		Iterator<E> removeIt = this.iterator();
 		boolean removed = false;
 		while (removeIt.hasNext() && !removed) {
-			if (removeIt.next().equals(item))
-				removed = true;
-			size--;
+			if (removeIt.next().equals(item)) {
+				removeIt.remove();
+                removed = true;
+                size--;
+            }
 		}
 		return removed;
 	}
@@ -122,11 +106,14 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 	}
 
 	public ISet<E> union(ISet<E> otherSet) {
-		ISet<E> result = new UnsortedSet<E>();
+		ISet<E> result = new UnsortedSet<>();
 		for (E item : myCon)
 			result.add(item);
 		for (E item : otherSet)
 			result.add(item);
 		return null;
 	}
+
+
+
 }

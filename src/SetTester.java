@@ -311,6 +311,10 @@ public class SetTester {
         processTextJavaSets( new TreeSet<String>(), text);
     }
 
+    private static void studentTests(){
+        
+    }
+
 
     /*
      * pre: set != null, text != null

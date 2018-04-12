@@ -92,21 +92,6 @@ public class UnsortedSet<E> extends AbstractSet<E> {
 		return myCon.iterator();
 	}
 
-	// Removes an item from the set if the item exists in the set. O(N)
-	// Pre: item != null.
-	// Post: item removed from the set, returns true if the set is changed by
-	// the method.
-	public boolean remove(E item) {
-		Iterator<E> removeIt = this.iterator();
-		boolean removed = false;
-		while (removeIt.hasNext() && !removed) {
-			if (removeIt.next().equals(item)) {
-				removeIt.remove();
-				removed = true;
-			}
-		}
-		return removed;
-	}
 
 	// Returns the size of the Unsorted Set. O(1)
 	public int size() {

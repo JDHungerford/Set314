@@ -1,6 +1,6 @@
 /*  Student information for assignment:
  *
- *  On <MY|OUR> honor, <NAME1> and <NAME2), this programming assignment is <MY|OUR> own work
+ *  On <MY|OUR> honor, Miles Chandler and Jacob Hungerford), this programming assignment is <MY|OUR> own work
  *  and <I|WE> have not provided this code to any other student.
  *
  *  Number of slip days used:
@@ -19,7 +19,6 @@
  *
  */
 
-import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.ArrayList;
 
@@ -169,23 +168,22 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
      * @return true if this set contains the specified item, false otherwise.
      */
     public boolean contains(E item){
-        return binSearch(0, myCon.size() - 1, item);
+        return binSearch(item, 0, myCon.size() - 1);
     }
 
-    private boolean binSearch(int min, int max, E val){
-        if (max < min){
-            return false;
+    private boolean binSearch(E target, int low, int high) {
+        if( low <= high){
+            int mid = low + ((high - low) / 2);
+            if( myCon.get(mid).equals(target))
+                return true;
+            else if( myCon.get(mid).compareTo(target) < 0 )
+                return binSearch(target, low, mid - 1);
+            else
+                return binSearch(target, mid + 1, high);
         }
-        int mid = (min + max) / 2;
-        if (val == myCon.get(mid)){
-            return true;
-        }
-        if (val.compareTo(myCon.get(mid)) < 0){
-            return binSearch(min, mid - 1, val);
-        }else{
-            return binSearch(mid + 1, max, val);
-        }
+        return false;
     }
+
 
     /**
      * create a SortedSet out of an unsorted set. <br>

@@ -312,7 +312,190 @@ public class SetTester {
     }
 
     private static void studentTests(){
-        
+        //Unsorted
+        //1 addAll
+        UnsortedSet<Integer> s1 = new UnsortedSet<>();
+        UnsortedSet<Integer> s2 = new UnsortedSet<>();
+        s2.add(2);
+        s2.add(-100);
+        s1.addAll(s2);
+        UnsortedSet<Integer> expected = new UnsortedSet<>();
+        expected.add(2);
+        expected.add(-100);
+        if (s1.equals(expected))
+            System.out.println("Passed test 1: addAll");
+        else
+            System.out.println("Failed test 1");
+
+
+        //2 clear
+        s1.clear();
+        expected = new UnsortedSet<>();
+        if (s1.equals(expected))
+            System.out.println("Passed test 2: clear");
+        else
+            System.out.println("Failed test 2");
+
+        //3 add
+        s1.add(1);
+        expected.add(1);
+        if (s1.equals(expected))
+            System.out.println("Passed test 3: add");
+        else
+            System.out.println("Failed test 3");
+
+        //4 difference
+        s2.clear();
+        s2.add(1);
+        ISet<Integer> exp =  s1.difference(s2);
+        if (exp.size() == 0)
+            System.out.println("Passed test 4: difference");
+        else
+            System.out.println("Failed test 4");
+
+        //5 intersection
+        exp = s1.intersection(s2);
+        if (s1.equals(exp))
+            System.out.println("Passed test 5: intersection");
+        else
+            System.out.println("Failed test 5");
+
+        //6 iterator
+        exp.clear();
+        s1.add(2);
+        s2.add(2);
+        for (Integer i : s1){
+            exp.add(i);
+        }
+        for (Integer i : s2){
+            exp.add(i);
+        }
+        if (exp.size() == 4)
+            System.out.println("Passed test 6: iterator");
+        else
+            System.out.println("Failed test 6");
+
+        //7 size()
+        if (s1.size() == s2.size())
+            System.out.println("Passed test 7: size");
+        else
+            System.out.println("Failed test 7");
+
+        //8 union
+        s2.add(3);
+        exp = s1.union(s2);
+        s1.add(3);
+        if (s1.equals(exp))
+            System.out.println("Passed test 8: Union");
+        else
+            System.out.println("Failed test 8");
+
+        // 9 constructor
+        s1 = new UnsortedSet<>();
+        exp.clear();
+        if (s1.equals(exp))
+            System.out.println("Passed test 9: constructor");
+        else
+            System.out.println("Failed test 9");
+
+        //10 remove
+        s1.add(1);
+        s1.remove(1);
+        if (s1.equals(exp))
+            System.out.println("Passed test 10: remove");
+        else
+            System.out.println("Failed test 10");
+
+        //11 contains
+        if (!s1.contains(40))
+            System.out.println("Passed test 11: contains");
+        else
+            System.out.println("Failed test 11");
+
+        //12 containsAll
+        s1.add(-10);
+        s2.clear();
+        s2.add(-10);
+        if (s1.containsAll(s2))
+            System.out.println("Passed test 12: containsALl");
+        else
+            System.out.println("Failed test 12");
+
+        //13 toString
+        if (s1.toString().equals("(-10)"))
+            System.out.println("Passed test 13: toString");
+        else
+            System.out.println("Failed test 13");
+
+        //14 equals
+        s1.add(2);
+        s2.add(3);
+        if (!s1.equals(s2))
+            System.out.println("Passed test 14: equals");
+        else
+            System.out.println("Failed test 14");
+
+        //Sorted
+
+        //15 constructor
+        SortedSet<Integer> ss1 = new SortedSet<>();
+        if (ss1.size() == 0)
+            System.out.println("Passed test 15: constructor");
+        else
+            System.out.println("Failed test 15");
+
+        //16 iterator
+        String res = "";
+        ss1.add(1);
+        ss1.add(2);
+        ss1.add(10);
+        ss1.add(8);
+        for (Integer i : ss1){
+            res += "" + i;
+        }
+        if (res.equals(12810))
+            System.out.println("Passed test 16: iterator");
+        else
+            System.out.println("Failed test 16");
+
+        //17 add
+        ss1.add(1);
+        if (ss1.size() == 4)
+            System.out.println("Passed test 17: add");
+        else
+            System.out.println("Failed test 17");
+
+        //18 clear()
+        ss1.clear();
+        if (ss1.size() == 0)
+            System.out.println("Passed test 18: clear");
+        else
+            System.out.println("Failed test 18");
+
+        //19 size()
+        ss1.add(1);
+        if (ss1.size() == 1)
+            System.out.println("Passed test 19: size");
+        else
+            System.out.println("Failed test 19");
+
+        //20 addAll
+        SortedSet<Integer> ss2 = new SortedSet<>();
+        ss2.add(1);
+        ss2.add(3);
+        ss1.addAll(ss2);
+        if (ss1.size() == 2)
+            System.out.println("Passed test 20: addAll");
+        else
+            System.out.println("Failed test 20");
+
+
+
+
+
+
+
+
     }
 
 

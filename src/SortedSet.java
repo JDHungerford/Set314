@@ -260,7 +260,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         if (otherSet == null){
             throw new IllegalArgumentException("otherSet can't be null");
         }
-        SortedSet<E> newSet = new SortedSet<>();
+        ISet<E> newSet = new SortedSet<>();
         newSet.addAll(this);
         newSet.addAll(otherSet);
         return newSet;
@@ -297,7 +297,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         if (otherSet == null){
             throw new IllegalArgumentException("Parameter can't be null");
         }
-        SortedSet<E> result = new SortedSet<>();
+        ISet<E> result = new SortedSet<>();
         if (otherSet instanceof SortedSet){
             SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
             int thisIndex = 0;
@@ -388,7 +388,7 @@ public class SortedSet<E extends Comparable<? super E>> extends AbstractSet<E> {
         if (otherSet == null){
             throw new IllegalArgumentException("Parameter can't be null");
         }
-        SortedSet<E> result = new SortedSet<>();
+        ISet<E> result = new SortedSet<>();
         if (otherSet instanceof SortedSet) {
             SortedSet<E> otherSortedSet = (SortedSet<E>) otherSet;
             int thisIndex = 0;

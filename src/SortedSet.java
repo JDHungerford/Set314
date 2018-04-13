@@ -11,11 +11,11 @@
  *  Grader name: Anthony
  *  Section number: 51345
  *
- *  Student 2
- *  UTEID:
- *  email address:
- *  Grader name:
- *  Section number:
+ *  Student 2 Jacob Hungerford
+ *  UTEID: jdh5468
+ *  email address: JHungerford1516@utexas.edu
+ *  Grader name: Anthony
+ *  Section number: 51345
  *
  */
 

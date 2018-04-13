@@ -89,8 +89,8 @@ Time to add the elements in the text to this set: elapsed time: 0.163775702 seco
 
 O(NlogM) for SortedSet processText
 O(N * M) for UnsortedSet processText
-O(N) for SortedSet processText
-O(N) for UnsortedSet processText
+O(N) for SortedSet add
+O(N) for UnsortedSet add
 O(1) for HashSet add
 O(logN) for TreeSet add
 A HashSet prints the elements out without any specific order each time while a

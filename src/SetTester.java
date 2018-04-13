@@ -51,226 +51,8 @@ method calls.
 
 public class SetTester {
 
-    public static void main(String[] args){
-
-        ISet<String> s1 = new UnsortedSet<String>();
-        s1.add("A");
-        s1.add("C");
-        s1.add("A");
-        s1.add("B");
-
-        //test 1
-        if( s1.contains("A") )
-            System.out.println("Passed test 1: add and contains methods SortedSet");
-        else
-            System.out.println("Failed test 1: add and contains methods SortedSet");
-
-        //test 2
-        s1.remove("A");
-        if( !s1.contains("A") )
-            System.out.println("Passed test 2: remove method UnsortedSet");
-        else
-            System.out.println("Failed test 2: remove method UnsortedSet");
-
-        //test 3
-        if( s1.size() == 2 )
-            System.out.println("Passed test 3: size method UnsortedSet");
-        else
-            System.out.println("Failed test 3: size method UnsortedSet");
-
-        ISet<String> s2 = new UnsortedSet<String>();
-        s2.add("C");
-        s2.add("A");
-        s2.add("B");
-
-        //test 4
-        if( s2.containsAll(s1) )
-            System.out.println("Passed test 4: containsAll method UnsortedSet");
-        else
-            System.out.println("Failed test 4: containsAll method UnsortedSet");
-
-        //test 5
-        if( !s1.containsAll(s2) )
-            System.out.println("Passed test 5: containsAll method UnsortedSet");
-        else
-            System.out.println("Failed test 5: containsAll method UnsortedSet");
-
-        //test 6
-        ISet<String> s3 = s2.difference(s1);
-        ISet<String> expected = new UnsortedSet<String>();
-        expected.add("A");
-        if( s3.equals(expected))
-            System.out.println("Passed test 6: difference and equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 6: difference and equals methods UnsortedSet");
-
-        //test 7
-        s3 = s2.union(s1);
-        expected.add("B");
-        expected.add("C");
-        if( s3.equals(expected))
-            System.out.println("Passed test 7: union and equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 7: union and equals methods UnsortedSet");
-
-        //test 8
-        s3 = s2.intersection(s1);
-        expected.remove("A");
-        if( s3.equals(expected))
-            System.out.println("Passed test 8: intersection and equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 8: intersection and equals methods UnsortedSet");
-
-        //sorted sets
-        s1 = new SortedSet<String>();
-        s1.add("A");
-        s1.add("C");
-        s1.add("A");
-        s1.add("B");
-
-        //test 9
-        if( s1.contains("A") )
-            System.out.println("Passed test 9: add and contains methods SortedSet");
-        else
-            System.out.println("Failed test 9: add and contains methods SortedSet");
-
-        //test 10
-        s1.remove("A");
-        if( !s1.contains("A") )
-            System.out.println("Passed test 10: remove and contains methods SortedSet");
-        else
-            System.out.println("Failed test 10: remove and contains methods SortedSet");
-
-        //test 11
-        if( s1.size() == 2 )
-            System.out.println("Passed test 11: size method SortedSet");
-        else
-            System.out.println("Failed test 11: size method SortedSet");
-
-        s2 = new SortedSet<String>();
-        s2.add("C");
-        s2.add("A");
-        s2.add("B");
-
-        //test 12
-        if( s2.containsAll(s1) )
-            System.out.println("Passed test 12: containsAll method SortedSet");
-        else
-            System.out.println("Failed test 12: containsAll method SortedSet");
-
-        //test 13
-        if( !s1.containsAll(s2) )
-            System.out.println("Passed test 13: containsAll method SortedSet");
-        else
-            System.out.println("Failed test 13: containsAll method SortedSet");
-
-        //test 14
-        s3 = s2.difference(s1);
-        expected = new SortedSet<String>();
-        expected.add("A");
-        if( s3.equals(expected))
-            System.out.println("Passed test 14: difference and equals methods SortedSet");
-        else
-            System.out.println("Failed test 14: difference and equals methods SortedSet");
-
-        //test 14.1
-        s3 = s1.difference(s2);
-        expected = new SortedSet<String>();
-        if( s3.equals(expected))
-            System.out.println("Passed test 14.1: difference and equals methods SortedSet");
-        else
-            System.out.println("Failed test 14.1: difference and equals methods SortedSet");
-
-        //test 15
-        s3 = s1.union(s2);
-        expected = new SortedSet<String>();
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
-        if( s3.equals(expected))
-            System.out.println("Passed test 15: union and equals methods SortedSet");
-        else
-            System.out.println("Failed test 15: union and equals methods SortedSet");
-
-        //test 16
-        s3 = s1.intersection(s2);
-        expected.remove("A");
-        if( s3.equals(expected))
-            System.out.println("Passed test 16: intersection and equals methods SortedSet");
-        else
-            System.out.println("Failed test 16: intersection and equals methods SortedSet");
-
-        // test 17
-        s1.add("A");
-        Iterator<String> it1 = s1.iterator();
-        Iterator<String> it2 = s2.iterator();
-        boolean good = true;
-        while( good && it1.hasNext() )
-            good = it1.next().equals(it2.next());
-        if( good )
-            System.out.println("Passed test 17: iterator and add methods SortedSet");
-        else
-            System.out.println("Failed test 17: iterator and add methods SortedSet");
-
-        // test 18
-        s1 = new UnsortedSet<String>();
-        UnsortedSet<Integer> si1 = new UnsortedSet<Integer>();
-        if(si1.equals(s1))
-            System.out.println("Passed test 18: equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 18: equals methods UnsortedSet");
-
-        // test 19
-        s1.add("is");
-        s1.add("a");
-        si1.add(12);
-        si1.add(13);
-        si1.add(12);
-        if(!si1.equals(s1))
-            System.out.println("Passed test 19: equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 19: equals methods UnsortedSet");
-
-        // test 20
-        ArrayList<Integer> ar = new ArrayList<Integer>();
-        ar.add(12);
-        ar.add(13);
-        if(!si1.equals(ar))
-            System.out.println("Passed test 20: equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 20: equals methods UnsortedSet");
-
-        // test 21
-        Object obj1 = s1;
-        s2 = new UnsortedSet<String>();
-        s2.add("a");
-        s2.add("is");
-        Object obj2 = s2;
-        if(obj1.equals(obj2))
-            System.out.println("Passed test 21: equals methods UnsortedSet");
-        else
-            System.out.println("Failed test 21: equals methods UnsortedSet");
-
-        // test 22
-        s1 = new SortedSet<String>();
-        s1.add("A");
-        s1.add("A");
-        s1.add("B");
-        ISet<Integer> ss2 = new SortedSet<Integer>();
-        ss2.add(12);
-        ss2.add(15);
-        ss2.add(12);
-        ss2.add(15);
-        if(!s1.equals(ss2))
-            System.out.println("Passed test 22: equals methods SortedSet - different types");
-        else
-            System.out.println("Failed test 22: equals methods SortedSet - different types");
-
-        // test 23
-        if(!ss2.equals(s1))
-            System.out.println("Passed test 23: equals methods SortedSet - different types");
-        else
-            System.out.println("Failed test 23: equals methods SortedSet - different types");
+    public static void main(String[] args) {
+        studentTests();
 
         // CS314 Students. Uncomment this section when ready to 
         // run your experiments
@@ -296,7 +78,7 @@ public class SetTester {
      * various sets, including CS314 UnsortedSet and SortedSet and Java's
      * TreeSet and HashSet.
      */
-    private static void largeTest(){
+    private static void largeTest() {
         System.out.println();
         System.out.println("Opening Window to select file. You may have to minimize other windows.");
         String text = convertFileToString();
@@ -306,9 +88,241 @@ public class SetTester {
         System.out.println("****** CS314 UnsortedSet: *****");
         processTextCS314Sets(new UnsortedSet<String>(), text);
         System.out.println("***** Java HashSet ******");
-        processTextJavaSets( new HashSet<String>(), text);
+        processTextJavaSets(new HashSet<String>(), text);
         System.out.println("***** Java TreeSet ******");
-        processTextJavaSets( new TreeSet<String>(), text);
+        processTextJavaSets(new TreeSet<String>(), text);
+    }
+
+    private static void studentTests() {
+        //Unsorted
+        //1 addAll
+        UnsortedSet<Integer> s1 = new UnsortedSet<>();
+        UnsortedSet<Integer> s2 = new UnsortedSet<>();
+        s2.add(2);
+        s2.add(-100);
+        s1.addAll(s2);
+        UnsortedSet<Integer> expected = new UnsortedSet<>();
+        expected.add(2);
+        expected.add(-100);
+        if (s1.equals(expected))
+            System.out.println("Passed test 1: addAll");
+        else
+            System.out.println("Failed test 1");
+
+
+        //2 clear
+        s1.clear();
+        expected = new UnsortedSet<>();
+        if (s1.equals(expected))
+            System.out.println("Passed test 2: clear");
+        else
+            System.out.println("Failed test 2");
+
+        //3 add
+        s1.add(1);
+        expected.add(1);
+        if (s1.equals(expected))
+            System.out.println("Passed test 3: add");
+        else
+            System.out.println("Failed test 3");
+
+        //4 difference
+        s2.clear();
+        s2.add(1);
+        ISet<Integer> exp = s1.difference(s2);
+        if (exp.size() == 0)
+            System.out.println("Passed test 4: difference");
+        else
+            System.out.println("Failed test 4");
+
+        //5 intersection
+        exp = s1.intersection(s2);
+        if (s1.equals(exp))
+            System.out.println("Passed test 5: intersection");
+        else
+            System.out.println("Failed test 5");
+
+        //6 iterator
+        exp.clear();
+        s1.add(2);
+        s2.add(2);
+        for (Integer i : s1) {
+            exp.add(i);
+        }
+        for (Integer i : s2) {
+            exp.add(i);
+        }
+        if (exp.size() == 2)
+            System.out.println("Passed test 6: iterator");
+        else
+            System.out.println("Failed test 6");
+
+        //7 size()
+        if (s1.size() == s2.size())
+            System.out.println("Passed test 7: size");
+        else
+            System.out.println("Failed test 7");
+
+        //8 union
+        s2.add(3);
+        exp = s1.union(s2);
+        s1.add(3);
+        if (s1.equals(exp))
+            System.out.println("Passed test 8: Union");
+        else
+            System.out.println("Failed test 8");
+
+        // 9 constructor
+        s1 = new UnsortedSet<>();
+        exp.clear();
+        if (s1.equals(exp))
+            System.out.println("Passed test 9: constructor");
+        else
+            System.out.println("Failed test 9");
+
+        //10 remove
+        s1.add(1);
+        s1.remove(1);
+        if (s1.equals(exp))
+            System.out.println("Passed test 10: remove");
+        else
+            System.out.println("Failed test 10");
+
+        //11 contains
+        if (!s1.contains(40))
+            System.out.println("Passed test 11: contains");
+        else
+            System.out.println("Failed test 11");
+
+        //12 containsAll
+        s1.add(-10);
+        s2.clear();
+        s2.add(-10);
+        if (s1.containsAll(s2))
+            System.out.println("Passed test 12: containsALl");
+        else
+            System.out.println("Failed test 12");
+
+        //13 toString
+        if (s1.toString().equals("(-10)"))
+            System.out.println("Passed test 13: toString");
+        else
+            System.out.println("Failed test 13");
+
+        //14 equals
+        s1.add(2);
+        s2.add(3);
+        if (!s1.equals(s2))
+            System.out.println("Passed test 14: equals");
+        else
+            System.out.println("Failed test 14");
+
+        //Sorted
+
+        //15 constructor
+        SortedSet<Integer> ss1 = new SortedSet<>();
+        if (ss1.size() == 0)
+            System.out.println("Passed test 15: constructor");
+        else
+            System.out.println("Failed test 15");
+
+        //16 iterator
+        String res = "";
+        ss1.add(1);
+        ss1.add(2);
+        ss1.add(10);
+        ss1.add(8);
+        for (Integer i : ss1) {
+            res += "" + i;
+        }
+        if (res.equals("12810"))
+            System.out.println("Passed test 16: iterator");
+        else
+            System.out.println("Failed test 16");
+
+        //17 add
+        ss1.add(1);
+        if (ss1.size() == 4)
+            System.out.println("Passed test 17: add");
+        else
+            System.out.println("Failed test 17");
+
+        //18 clear()
+        ss1.clear();
+        if (ss1.size() == 0)
+            System.out.println("Passed test 18: clear");
+        else
+            System.out.println("Failed test 18");
+
+        //19 size()
+        ss1.add(1);
+        if (ss1.size() == 1)
+            System.out.println("Passed test 19: size");
+        else
+            System.out.println("Failed test 19");
+
+        //20 addAll
+        SortedSet<Integer> ss2 = new SortedSet<>();
+        ss2.add(1);
+        ss2.add(3);
+        ss1.addAll(ss2);
+        if (ss1.size() == 2)
+            System.out.println("Passed test 20: addAll");
+        else
+            System.out.println("Failed test 20");
+
+        //21 contains
+        if (ss1.contains(3))
+            System.out.println("Passed test 21: contains");
+        else
+            System.out.println("Failed test 21");
+
+        //22 containsAll
+        if (ss1.containsAll(ss2))
+            System.out.println("Passed test 22: containsAll");
+        else
+            System.out.println("Failed test 22");
+
+        //23 constructor (arg)
+        UnsortedSet<Integer> s3 = new UnsortedSet<>();
+        s3.add(4);
+        s3.add(2);
+        ss1 = new SortedSet<>(s3);
+        if (ss1.size() == 2)
+            System.out.println("Passed test 23: constructor(arg)");
+        else
+            System.out.println("Failed test 23");
+
+
+        //24 min
+        if (ss1.min() == 2)
+            System.out.println("Passed test 24: min");
+        else
+            System.out.println("Failed test 24");
+
+        //25 max
+        if (ss1.max() == 4)
+            System.out.println("Passed test 25: max");
+        else
+            System.out.println("Failed test 25");
+
+        //26 difference
+        SortedSet ss3 = new SortedSet<>();
+        ss3.add(100);
+        ss3.add(4);
+        ISet<Integer> exp2 = ss1.difference(ss3);
+        if (exp2.size() == 0)
+            System.out.println("Passed test 26: difference");
+        else
+            System.out.println("Failed test 26");
+
+        //27 intersection
+        ISet<Integer> exp4 = ss1.intersection(ss3);
+        if (exp4.contains(4))
+            System.out.println("Passed test 27: intersection");
+        else
+            System.out.println("Failed test 27");
+
     }
 
 
@@ -318,12 +332,12 @@ public class SetTester {
      * white space.
      * This version for CS314 sets.
      */
-    private static void processTextCS314Sets(ISet<String> set, String text){
+    private static void processTextCS314Sets(ISet<String> set, String text) {
         Stopwatch s = new Stopwatch();
         Scanner sc = new Scanner(text);
         int totalWords = 0;
         s.start();
-        while( sc.hasNext() ){
+        while (sc.hasNext()) {
             totalWords++;
             set.add(sc.next());
         }
@@ -340,12 +354,12 @@ public class SetTester {
      * white space.
      * This version for Java Sets.
      */
-    private static void processTextJavaSets(Set<String> set, String text){
+    private static void processTextJavaSets(Set<String> set, String text) {
         Stopwatch s = new Stopwatch();
         Scanner sc = new Scanner(text);
         int totalWords = 0;
         s.start();
-        while( sc.hasNext() ){
+        while (sc.hasNext()) {
             totalWords++;
             set.add(sc.next());
         }
@@ -362,7 +376,7 @@ public class SetTester {
     private static <E> void showResultsAndWords(Iterable<E> set, Stopwatch s,
                                                 int totalWords, int setSize) {
 
-        System.out.println("Time to add the elements in the text to this set: " + s.toString() );
+        System.out.println("Time to add the elements in the text to this set: " + s.toString());
         System.out.println("Total number of words in text including duplicates: " + totalWords);
         System.out.println("Number of distinct words in this text " + setSize);
 
@@ -371,8 +385,8 @@ public class SetTester {
         Scanner sc = new Scanner(System.in);
         String response = sc.next();
 
-        if( response != null && response.length() > 0 && response.substring(0,1).equalsIgnoreCase("y") ){
-            for(Object o : set)
+        if (response != null && response.length() > 0 && response.substring(0, 1).equalsIgnoreCase("y")) {
+            for (Object o : set)
                 System.out.println(o);
         }
         System.out.println();
@@ -397,16 +411,15 @@ public class SetTester {
         if (retval == JFileChooser.APPROVE_OPTION) {
             File source = chooser.getSelectedFile();
             try {
-                Scanner s = new Scanner( new FileReader( source ) );
+                Scanner s = new Scanner(new FileReader(source));
 
-                while( s.hasNextLine() ) {
-                    text.append( s.nextLine() );
+                while (s.hasNextLine()) {
+                    text.append(s.nextLine());
                     text.append(" ");
                 }
 
                 s.close();
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println("An error occured while trying to read from the file: " + e);
             }
         }
